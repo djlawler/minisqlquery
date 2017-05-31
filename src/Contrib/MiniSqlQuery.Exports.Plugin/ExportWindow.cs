@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 using MiniSqlQuery.Core;
 using MiniSqlQuery.Core.Forms;
@@ -15,8 +16,12 @@ namespace MiniSqlQuery.Exports.Plugin
 		{
 			_services = services;
 			InitializeComponent();
-			txtFilePath.Text = string.Format("{0}\\export{1:yyyy-MM-dd}.htm",
-			                                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), DateTime.Today);
+            txtFilePath.Text = _services.Settings.ExportFilePath;
+            if (txtFilePath.Text == String.Empty)
+            {
+                txtFilePath.Text = string.Format("{0}\\export{1:yyyy-MM-dd}.htm",
+                                                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), DateTime.Today);
+            }
 		}
 
 		public string SetStatusText
@@ -118,7 +123,8 @@ namespace MiniSqlQuery.Exports.Plugin
 			dialogSave.Title = "Where do you want to save the file?";
 
 			// Startup directory
-			dialogSave.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            dialogSave.InitialDirectory = System.IO.Path.GetDirectoryName(txtFilePath.Text);
+            dialogSave.FileName = System.IO.Path.GetFileName(txtFilePath.Text);
 
 			// Show the dialog and process the result
 			if (dialogSave.ShowDialog() == DialogResult.OK)
@@ -226,7 +232,9 @@ namespace MiniSqlQuery.Exports.Plugin
 		private void ExportCSV()
 		{
 			Export.CSVExport.OnWrittenData += CSVExport_OnWrittenData;
-			Export.CSVExport.ExportToCSV(_dsExecutedData.Tables[0], txtFilePath.Text, chkRowNames.Checked);
+            Export.CSVExport.ExportToCSV(_services, _dsExecutedData.Tables[0], txtFilePath.Text,
+                                         chkRowNames.Checked, txtDelim.Text, cmbxQuoting.Text,
+                                         cmbxTrimming.Text, chkDumpAll.Checked, txtSQL.Text);
 		}
 
 		private void CSVExport_OnWrittenData(string text)
@@ -271,5 +279,59 @@ namespace MiniSqlQuery.Exports.Plugin
 		{
 			ChangeExtension("xml");
 		}
-	}
+
+        void ExportWindowFormClosing(object sender, FormClosingEventArgs e)
+        {
+            _services.Settings.ExportFilePath = txtFilePath.Text;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Create new SaveFileDialog object
+            OpenFileDialog dialogOpen = new OpenFileDialog();
+
+            // Default file extension
+            dialogOpen.DefaultExt = "txt";
+            dialogOpen.FilterIndex = 2;
+            // Available file extensions
+            dialogOpen.Filter = "txt File (*.txt)|*.txt";
+            dialogOpen.AddExtension = true;
+            dialogOpen.RestoreDirectory = true;
+            dialogOpen.Title = "Where is the batch file located?";
+            // Show the dialog and process the result
+            if (dialogOpen.ShowDialog() == DialogResult.OK)
+            {
+                textBoxBatch.Text = dialogOpen.FileName;
+            }
+
+            dialogOpen.Dispose();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string line;
+
+            try
+            {
+                StreamReader file = new StreamReader(textBoxBatch.Text);
+                while ((line = file.ReadLine()) != null)
+                {
+                    string sqlcmd;
+                    StreamReader sqlfile = new StreamReader(line);
+                    sqlcmd = sqlfile.ReadToEnd();
+                    int idx = line.LastIndexOf(".");
+                    line = line.Remove(idx);
+                    line = line + ".csv";
+
+                    Export.CSVExport.OnWrittenData += CSVExport_OnWrittenData;
+                    Export.CSVExport.ExportToCSV(_services, _dsExecutedData.Tables[0], line,
+                                                 chkRowNames.Checked, txtDelim.Text, cmbxQuoting.Text,
+                                                 cmbxTrimming.Text, true, sqlcmd);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
 }

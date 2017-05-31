@@ -104,7 +104,13 @@ namespace MiniSqlQuery.Core
 		/// <value>The most recent files.</value>
 		StringCollection MostRecentFiles { get; set; }
 
-		/// <summary>
+        /// <summary>
+        /// 	Gets or sets the last export file path.
+        /// </summary>
+        /// <value>The most recent export path.</value>
+        string ExportFilePath { get; set; }
+        
+        /// <summary>
 		/// 	Gets an instance of <see cref = "DbProviderFactory" /> depending on the value of <see cref = "ConnectionDefinition" />.
 		/// </summary>
 		/// <value>The provider factory.</value>

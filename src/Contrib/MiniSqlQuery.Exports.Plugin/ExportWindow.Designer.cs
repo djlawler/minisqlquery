@@ -41,6 +41,15 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cmbxTrimming = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtSQL = new System.Windows.Forms.TextBox();
+            this.chkDumpAll = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmbxQuoting = new System.Windows.Forms.ComboBox();
+            this.txtDelim = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.chkRowNames = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtRowBgAltColor = new System.Windows.Forms.TextBox();
@@ -60,10 +69,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBoxBatch = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -103,12 +119,10 @@
             // rbtHtml
             // 
             this.rbtHtml.AutoSize = true;
-            this.rbtHtml.Checked = true;
             this.rbtHtml.Location = new System.Drawing.Point(15, 51);
             this.rbtHtml.Name = "rbtHtml";
             this.rbtHtml.Size = new System.Drawing.Size(46, 17);
             this.rbtHtml.TabIndex = 3;
-            this.rbtHtml.TabStop = true;
             this.rbtHtml.Text = "Html";
             this.rbtHtml.UseVisualStyleBackColor = true;
             this.rbtHtml.CheckedChanged += new System.EventHandler(this.rbtHtml_CheckedChanged);
@@ -116,10 +130,12 @@
             // rbtCsv
             // 
             this.rbtCsv.AutoSize = true;
+            this.rbtCsv.Checked = true;
             this.rbtCsv.Location = new System.Drawing.Point(77, 51);
             this.rbtCsv.Name = "rbtCsv";
             this.rbtCsv.Size = new System.Drawing.Size(43, 17);
             this.rbtCsv.TabIndex = 4;
+            this.rbtCsv.TabStop = true;
             this.rbtCsv.Text = "Csv";
             this.rbtCsv.UseVisualStyleBackColor = true;
             this.rbtCsv.CheckedChanged += new System.EventHandler(this.rbtCsv_CheckedChanged);
@@ -137,7 +153,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(401, 359);
+            this.btnCancel.Location = new System.Drawing.Point(401, 603);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -147,7 +163,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(320, 359);
+            this.btnExport.Location = new System.Drawing.Point(320, 603);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(75, 23);
             this.btnExport.TabIndex = 7;
@@ -159,22 +175,122 @@
             // 
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Location = new System.Drawing.Point(15, 85);
+            this.groupBox1.Location = new System.Drawing.Point(15, 201);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(461, 268);
+            this.groupBox1.Size = new System.Drawing.Size(461, 386);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output settings";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cmbxTrimming);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.txtSQL);
+            this.groupBox3.Controls.Add(this.chkDumpAll);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.cmbxQuoting);
+            this.groupBox3.Controls.Add(this.txtDelim);
+            this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.chkRowNames);
             this.groupBox3.Location = new System.Drawing.Point(6, 201);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(449, 54);
+            this.groupBox3.Size = new System.Drawing.Size(449, 166);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Csv";
+            // 
+            // cmbxTrimming
+            // 
+            this.cmbxTrimming.FormattingEnabled = true;
+            this.cmbxTrimming.Items.AddRange(new object[] {
+            "None",
+            "Left",
+            "Right",
+            "Both"});
+            this.cmbxTrimming.Location = new System.Drawing.Point(68, 57);
+            this.cmbxTrimming.Name = "cmbxTrimming";
+            this.cmbxTrimming.Size = new System.Drawing.Size(79, 21);
+            this.cmbxTrimming.TabIndex = 18;
+            this.cmbxTrimming.Text = "Right";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 60);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Trimming";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(133, 133);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(28, 13);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "SQL";
+            // 
+            // txtSQL
+            // 
+            this.txtSQL.Location = new System.Drawing.Point(170, 74);
+            this.txtSQL.Multiline = true;
+            this.txtSQL.Name = "txtSQL";
+            this.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtSQL.Size = new System.Drawing.Size(261, 92);
+            this.txtSQL.TabIndex = 8;
+            this.txtSQL.WordWrap = false;
+            // 
+            // chkDumpAll
+            // 
+            this.chkDumpAll.AutoSize = true;
+            this.chkDumpAll.Location = new System.Drawing.Point(9, 132);
+            this.chkDumpAll.Name = "chkDumpAll";
+            this.chkDumpAll.Size = new System.Drawing.Size(101, 17);
+            this.chkDumpAll.TabIndex = 7;
+            this.chkDumpAll.Text = "Dump from SQL";
+            this.chkDumpAll.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(299, 20);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Quotes";
+            // 
+            // cmbxQuoting
+            // 
+            this.cmbxQuoting.FormattingEnabled = true;
+            this.cmbxQuoting.Items.AddRange(new object[] {
+            "When Needed",
+            "Never",
+            "Always"});
+            this.cmbxQuoting.Location = new System.Drawing.Point(349, 16);
+            this.cmbxQuoting.Name = "cmbxQuoting";
+            this.cmbxQuoting.Size = new System.Drawing.Size(94, 21);
+            this.cmbxQuoting.TabIndex = 5;
+            this.cmbxQuoting.Text = "Always";
+            // 
+            // txtDelim
+            // 
+            this.txtDelim.Location = new System.Drawing.Point(223, 17);
+            this.txtDelim.Name = "txtDelim";
+            this.txtDelim.Size = new System.Drawing.Size(47, 20);
+            this.txtDelim.TabIndex = 4;
+            this.txtDelim.Text = "|";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(170, 21);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(47, 13);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Delimiter";
             // 
             // chkRowNames
             // 
@@ -348,7 +464,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 390);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 634);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(488, 22);
             this.statusStrip1.TabIndex = 9;
@@ -361,11 +477,74 @@
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.textBoxBatch);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Location = new System.Drawing.Point(15, 83);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(461, 112);
+            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Batch CSV Export";
+            // 
+            // button2
+            // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.ImageKey = "VSFolder_open.bmp";
+            this.button2.ImageList = this.imageList1;
+            this.button2.Location = new System.Drawing.Point(421, 34);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(24, 20);
+            this.button2.TabIndex = 5;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBoxBatch
+            // 
+            this.textBoxBatch.Location = new System.Drawing.Point(15, 35);
+            this.textBoxBatch.Name = "textBoxBatch";
+            this.textBoxBatch.Size = new System.Drawing.Size(396, 20);
+            this.textBoxBatch.TabIndex = 4;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(-2, 18);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(54, 13);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Batch File";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(339, 83);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(106, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Batch CSV Export";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(15, 62);
+            this.label16.MinimumSize = new System.Drawing.Size(300, 30);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(300, 47);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "File with a list of paths to SQL queries.  One query per file.  Output will be pl" +
+    "aced in the same directory and use the same file name (.csv extension)";
+            // 
             // ExportWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 412);
+            this.ClientSize = new System.Drawing.Size(488, 656);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExport);
@@ -380,6 +559,7 @@
             this.Name = "ExportWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExportWindow";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExportWindowFormClosing);
             this.Load += new System.EventHandler(this.ExportWindow_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -388,10 +568,21 @@
             this.groupBox2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cmbxTrimming;
+        private System.Windows.Forms.TextBox txtSQL;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox chkDumpAll;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtDelim;
+        private System.Windows.Forms.ComboBox cmbxQuoting;
+        private System.Windows.Forms.Label label12;
 
         #endregion
 
@@ -425,5 +616,11 @@
         private System.Windows.Forms.CheckBox chkRowNames;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBoxBatch;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }

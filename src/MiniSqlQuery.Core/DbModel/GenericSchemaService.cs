@@ -58,13 +58,22 @@ namespace MiniSqlQuery.Core.DbModel
                     {
                         return model;
                     }
-                    
-                    DataView tablesDV = new DataView(tables, "TABLE_TYPE='TABLE' OR TABLE_TYPE='BASE TABLE'", "TABLE_SCHEMA, TABLE_NAME", DataViewRowState.CurrentRows);
+
+                    string colsToGet = "TABLE_SCHEMA, TABLE_NAME";
+                    string nameCol = "TABLE_NAME";
+                    string criteria = "TABLE_TYPE='TABLE' OR TABLE_TYPE='BASE TABLE'";
+                    if (tables.Columns.Contains("TABLENAME"))
+                    {
+                        colsToGet = "TABLENAME";
+                        nameCol = "TABLENAME";
+                        criteria = "";
+                    }
+                    DataView tablesDV = new DataView(tables, criteria, colsToGet, DataViewRowState.CurrentRows);
 
                     foreach (DataRowView row in tablesDV)
                     {
                         string schemaName = SafeGetString(row.Row, "TABLE_SCHEMA");
-                        string tableName = SafeGetString(row.Row, "TABLE_NAME");
+                        string tableName = SafeGetString(row.Row, nameCol);
 
                         DbModelTable dbTable = new DbModelTable { Schema = schemaName, Name = tableName };
                         model.Add(dbTable);
@@ -77,7 +86,7 @@ namespace MiniSqlQuery.Core.DbModel
                     foreach (DataRowView row in viewsDV)
                     {
                         string schemaName = SafeGetString(row.Row, "TABLE_SCHEMA");
-                        string tableName = SafeGetString(row.Row, "TABLE_NAME");
+                        string tableName = SafeGetString(row.Row, nameCol);
 
                         DbModelView dbTable = new DbModelView { Schema = schemaName, Name = tableName };
                         model.Add(dbTable);

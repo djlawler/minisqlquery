@@ -43,5 +43,6 @@ namespace MiniSqlQuery.Core.DbModel
         /// <summary>Gets or sets Schema.</summary>
         /// <value>The schema.</value>
         public virtual string Schema { get; set; }
+
     }
 }

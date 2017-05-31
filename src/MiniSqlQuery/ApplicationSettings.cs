@@ -200,6 +200,20 @@ namespace MiniSqlQuery
 			}
 		}
 
+        /// <summary>Gets or sets ExportFilePath.</summary>
+        public string ExportFilePath
+        {
+            get { return Settings.Default.ExportFilePath; }
+            set
+            {
+                if (Settings.Default.ExportFilePath != value)
+                {
+                    Settings.Default.ExportFilePath = value;
+                    Settings.Default.Save();
+                }
+            }
+        }
+
 		public bool IncludeReadOnlyColumnsInExport
 		{
 			get { return Settings.Default.IncludeReadOnlyColumnsInExport; }
